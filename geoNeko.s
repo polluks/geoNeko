@@ -226,6 +226,7 @@ doTick:
         sta     r0L
         lda     mouseXH
         sbc     nekoX+1
+        sta     r0H
         bpl     checkX
         ; Negative delta X - negate
         lda     #0

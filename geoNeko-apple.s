@@ -220,6 +220,7 @@ doTick:
         sta     r0L
         lda     mouseXPos+1
         sbc     nekoX+1
+        sta     r0H
         bpl     checkX
         ; Negative delta X - negate
         lda     #0
@@ -526,14 +527,12 @@ olp:
         cpy     #CAT_BW
         bne     olp
 
-        ; Restore r6L to byte offset (undo the add)
-        sec
-        lda     r6L
-        sbc     #<lineBuf
+        ; Reload byte offset for next row
+        lda     nekoX
+        lsr     a
+        lsr     a
+        lsr     a
         sta     r6L
-        lda     r6H
-        sbc     #>lineBuf
-        sta     r6H
 
         ; Write modified line back to screen
         lda     #<lineBuf
