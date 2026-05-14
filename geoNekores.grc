@@ -1,5 +1,5 @@
 HEADER APPLICATION "geoNeko" "geoNeko" "V1.0" {
 dostype USR
 author "a2stuff / opencode"
-info "Animated cat that chases the mouse pointer. Based on a2d neko. Press STOP to quit. Dedicated to Masha."
+info "Animated cat that chases the mouse pointer. Based on a2d neko. Press STOP or ESC to quit. Dedicated to Masha."
 }
