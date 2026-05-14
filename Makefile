@@ -5,7 +5,6 @@ C64_OUT     = geoNeko.cvt
 C64_DISK    = geos-neko.d64
 C64_SAMPLES = /usr/local/share/cc65/samples/geos/samples-geos.d64
 C64_ASM     = geoNeko.s
-C64_GRC     = geoNekores.grc
 C64_FRAMES  = frames/neko_c64_frame_*.bin
 
 C1541 = /Applications/vice-arm64-gtk3-3.8/bin/c1541
@@ -16,7 +15,10 @@ X64SC = /Applications/vice-arm64-gtk3-3.8/bin/x64sc
 # ============================================================
 A2_OUT      = geoNeko-apple.cvt
 A2_ASM      = geoNeko-apple.s
-A2_GRC      = geoNekores-apple.grc
+A2_GRC      = geoNekores.grc
+
+# Shared GRC for both targets
+GRC_SRC     = geoNekores.grc
 
 # ============================================================
 # Common
@@ -30,8 +32,8 @@ all: c64 apple
 # ============================================================
 c64: $(C64_OUT)
 
-$(C64_OUT): $(C64_ASM) $(C64_GRC) $(C64_FRAMES)
-	$(AS) -t geos-cbm -o $(C64_OUT) $(C64_ASM) $(C64_GRC)
+$(C64_OUT): $(C64_ASM) $(GRC_SRC) $(C64_FRAMES)
+	$(AS) -t geos-cbm -o $(C64_OUT) $(C64_ASM) $(GRC_SRC)
 
 c64-disk: $(C64_OUT)
 	cp $(C64_SAMPLES) $(C64_DISK)
@@ -49,8 +51,8 @@ ACX         = /usr/local/bin/acx
 
 apple: $(A2_OUT)
 
-$(A2_OUT): $(A2_ASM) $(A2_GRC) $(C64_FRAMES)
-	$(AS) -t geos-apple -o $(A2_OUT) $(A2_ASM) $(A2_GRC)
+$(A2_OUT): $(A2_ASM) $(GRC_SRC) $(C64_FRAMES)
+	$(AS) -t geos-apple -o $(A2_OUT) $(A2_ASM) $(GRC_SRC)
 
 apple-disk: $(A2_OUT) $(A2_DISK)
 
