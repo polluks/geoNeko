@@ -1,7 +1,7 @@
 TARGET   = geos-cbm
 OUT      = geoNeko.cvt
 DISK     = geos-neko.d64
-CFG      = $(shell cl65 --print-target-path 2>/dev/null)/cfg/$(TARGET).cfg
+SAMPLES  = /usr/local/share/cc65/samples/geos/samples-geos.d64
 ASM_SRC  = geoNeko.s
 GRC_SRC  = geoNekores.grc
 FRAMES   = frames/neko_c64_frame_*.bin
@@ -16,13 +16,10 @@ all: $(OUT)
 $(OUT): $(ASM_SRC) $(GRC_SRC) $(FRAMES)
 	$(AS) $(ASFLAGS) $(ASM_SRC) $(GRC_SRC)
 
-disk: $(OUT) $(DISK)
-	$(C1541) -attach $(DISK) -geoswrite $(OUT) 2>/dev/null
+disk: $(OUT)
+	cp $(SAMPLES) $(DISK)
+	$(C1541) -attach $(DISK) -geoswrite $(OUT) 2>&1 | grep -v "^/Users/" || true
 	$(C1541) -attach $(DISK) -list 2>&1 | grep -i neko
-
-$(DISK):
-	cp /usr/local/share/cc65/samples/geos/samples-geos.d64 $(DISK) 2>/dev/null || \
-	$(C1541) -format "geos-neko,gd" d64 $(DISK)
 
 run: disk
 	$(X64SC) -autostart $(DISK)
