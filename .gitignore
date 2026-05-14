@@ -1,3 +1,5 @@
 *.o
 *.map
 geos-neko.d64
+*.cvt
+*.po
