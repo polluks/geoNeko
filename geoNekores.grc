@@ -1,3 +1,5 @@
+; geoNekores.grc - GEOS resource definitions for every geoNeko
+
 HEADER APPLICATION "geoNeko" "geoNeko" "V1.0" {
 dostype USR
 author "a2stuff / opencode"
